@@ -49,6 +49,8 @@ if(projectForm && projectForm instanceof HTMLFormElement) {
         if(!projectForm.date.value) {
             projectForm.date.value = "2024-03-14"
         }
+        
+
 try {
 
     const project = projectManager.newProject(projectProperty) // skapar en ny variabel som är av typen projectManager och kallar på metoden newProject
@@ -62,6 +64,7 @@ try {
         //errorElement.innerHTML  // skapar en ny div med innehåll enligt "pop-up-modal elementet"
         errorElement.style.display = "flex"; // Visar elementet som normalt är dolt
         const closeBtnPopup = document.getElementById("close-pop-up-btn")
+        
         if (closeBtnPopup) {
           closeBtnPopup.addEventListener("click", () => {
           errorElement.style.display = "none"; // släcker ner elementet

@@ -6,7 +6,6 @@ import { Todo } from './TodoClass';
 
  //M2-Assignment Q#2 
 const colorArray = ['blue', 'green', 'red', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black', 'grey'];
-
 function changeColorIcon() {
     const color = colorArray[Math.floor(Math.random() * colorArray.length)];
     return color;   
@@ -83,6 +82,11 @@ export class Project implements IProject{
         if (this[key] !== data[key]) {
             console.log("not successful");
         }
+        //M2-Assignment Q#3
+        if(this.name.length <5){
+            console.log("not valid name ")
+            return
+        }
         //M2-Assigment Q#4
         if (this.date !== undefined) {
             console.warn("ingen dataum satt")
@@ -115,7 +119,6 @@ export class Project implements IProject{
         //M2-Assignment Q#1
         this.ui.innerHTML = ` 
     <div class="card-header">  
-              
     <p style="background-color: ${randomColor}; padding: 10px; border-radius: 8px; aspect-ratio: 1;">${this.name.slice(0,2)}</p>
                 <div>
                 <h5>${this.name}</h5>
