@@ -279,7 +279,7 @@ button {
   flex-direction: column-reverse;
 }
 
-.Todolist {
+.toDoElement {
   display: flex; /* Use flexbox to align items */
   align-items: center; /* Align items vertically in the center */
   justify-content: space-between; /* Distribute space between items */

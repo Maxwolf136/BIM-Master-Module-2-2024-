@@ -147,7 +147,7 @@ export class ProjectManager {
 
     //M2-Assigment Q#8
     updateProject(data: IProject) {
-        const project = this.list.find(project => project.id === this.id); //hittar project ID matchar ID i Array
+        const project = this.list.find((project) => project.id === this.id); //hittar project ID matchar ID i Array
 
         if (project) {
             project.name = data.name;

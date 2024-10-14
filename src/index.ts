@@ -1,8 +1,9 @@
-import { IProject, role, status } from "./classes/Project"
+import { Project, IProject, role, status } from "./classes/Project"
 import { ProjectManager } from "./classes/ProjectManager"
 import { closeModal, showModal, toggleModal, } from "./classes/Modal"
-import { Todo, ITodo } from "./classes/TodoClass"
+import { Todo, ITodo, todostatus } from "./classes/TodoClass"
 import { v4 as uuidv4 } from 'uuid';
+import { reduceVertices } from "three/examples/jsm/utils/SceneUtils.js";
 
 
 const projectlistUI = document.getElementById("project-list") as HTMLDivElement
@@ -27,6 +28,7 @@ if (homePageButton) {
     homePageButton.addEventListener("click", () => {
         projectPage.style.display = "flex";
         todoDiv.style.display = "none";
+       
     });
 }
 
@@ -87,8 +89,8 @@ console.log(closeBtn)
 //M2-Assignment Q#7
 const exportBtn = document.getElementById("export-btn")
 if(exportBtn)  {
-        exportBtn.addEventListener("click", () => {
-            projectManager.exportToJSON();
+    exportBtn.addEventListener("click", () => {
+        projectManager.exportToJSON();
   })
 }
 
@@ -156,17 +158,7 @@ closeBtn.addEventListener("click", (event) => {closeModal("edit-project-modal")}
 closeModal("edit-project-modal")
 console.log(closeBtn)
 
-const toDoListDivElement = document.getElementById("Todolist") as HTMLDivElement;
-function colorChangeStatus (status:status, div:HTMLDivElement) {
-    const statusColorMap = {
-        pending: "red",
-        closed: "green",
-        archived: "red",
-    };
-    
-    const color = statusColorMap[status] || "white";
-    div.style.backgroundColor = color
-}
+
 
 
 
@@ -180,47 +172,65 @@ if (addTodo) {
 }
 //M2-Assigment-Q#6
 const todDoForm = document.getElementById("T-Do-project-form") as HTMLFormElement
+todDoForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+const formData = new FormData(todDoForm);
+const todoData: ITodo = {
+    id: uuidv4(),
+    name: formData.get("name-todo") as string,
+    description: formData.get("description-todo") as string,
+    status: formData.get("Todostatus") as todostatus,
+    date : new Date(formData.get("date") as string).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
+}
+    const toDoListDiv = document.querySelector(".dashboard-card-todo") as HTMLDivElement
+    const toDoObject = new Todo(toDoListDiv, todoData, todoData.date)
     
-    if(todDoForm instanceof HTMLFormElement ) {
+    if (todoData.status) {;
+        const todoDiv = document.getElementById("todostatus") as HTMLDivElement;
+        if(todoDiv && todoData.status === "pending") {
+            todoDiv.style.backgroundColor = "green"
+        }
+        if(todoDiv && todoData.status === "closed") {
+            todoDiv.style.backgroundColor = "red"
+        }
+    } try {
+        toDoObject.setUI(toDoObject.id)
+        console.log("created")
+    } catch {
+        console.log("warning")
+    }
+    closeModal("T-Do-project-modal")
+    todDoForm.reset();
+    console.log(toDoObject)
+}
+ 
+)
+
+
+/*     if(todDoForm instanceof HTMLFormElement ) {
 
         todDoForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
         const formData = new FormData(todDoForm);
-        
-   /*      if (getTodo) {
-            getTodo.description = formData.get("description-todo") as string;
-            getTodo.name = formData.get("name-todo") as string;
-            getTodo.status = formData.get("status") as status;
-            getTodo.date = new Date(formData.get("date") as string);
-            getTodo.id = uuidv4();
-        }  */
-        const todoData: ITodo = {
-            id: uuidv4(),
-            name: formData.get("name-todo") as string,
-            description: formData.get("description-todo") as string,
-            status: formData.get("status") as status,
-            date : new Date(formData.get("date") as string).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                
-                
-            })
-        }
-   
+
+    
         
         // querySelect the div with class "To-dolist" 
-        const toDoListDiv = document.querySelector(".Todolist");
         //Create new aa div Element
         if (toDoListDiv) {
             const newDiv = document.createElement('div');
             newDiv.innerHTML = `
             <div class="Todolist" id="todo-list" style="display: flex";>
                 <h4 name="name-todo" class="T-doHeader">${todoData.name}</h4>
-                <p1 id="description-todo" name="description-todo">${todoData.description}</p1>
+                <p id="description-todo" name="description-todo">${todoData.description}</p>
             <div id="date-todo">${todoData.date}</div>
-                <div id="todostatus" name="todostatus">${todoData.status}</div>
+            <div id="date-todo">${todoData.status}</div>
             </div>
             ` ;
             newDiv.style.display = "flex"; 
@@ -231,18 +241,21 @@ const todDoForm = document.getElementById("T-Do-project-form") as HTMLFormElemen
             if (container) {
                 container.appendChild(newDiv);
             } 
-            
             //M2-Assigment-Q#9
-            if (todoData.status === "Pending") {
+            if (todoData.status === "pending") {
                 newDiv.style.backgroundColor = "yellow";
                 newDiv.style.color = "black";
-            } else if (todoData.status === "Closed") { 
+            } else if (todoData.status === "closed") { 
+                newDiv.style.backgroundColor = "red";
+            } else if (todoData.status === "archived") { 
                 newDiv.style.backgroundColor = "red";
             } else {
                 newDiv.style.color = "white";
             }
             
-        
+            
+            
+            
         }
         
         // Toggle the modal
@@ -295,4 +308,4 @@ const todDoForm = document.getElementById("T-Do-project-form") as HTMLFormElemen
     }
  }
 ); 
-}
+} */

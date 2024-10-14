@@ -11,33 +11,10 @@ function changeColorIcon() {
     return color;   
 }
 
- //M2-Assigment Q#09
-/*  export function changeColorTodo (todo: IProject) {
-    const statusSelect = document.getElementById("status-todo") as HTMLSelectElement;
-    const todoDiv = document.getElementById("todo-list") as HTMLElement;
-
-    if (statusSelect && todoDiv) {
-        statusSelect.addEventListener("change", () => {
-            const status = statusSelect.value;
-            const statusColorMap = {
-                "pending": "blue",
-                'closed':  "green",
-                'archived': "red"
-            };
-
-            const color = statusColorMap[status];
-            if (color) {
-                todoDiv.style.backgroundColor = color;
-            } else {
-                console.warn(`No color defined for status: ${status}`);
-            }
-        });
-}
- } */
 
 // För att det är valbara alternativ
 export type role = "Admin" | "Manager" | "Developer" | "Designer"
-export type status = "pending" | "closed " | "archived"
+export type status = "pending" | "closed" | "archived" 
 
 
 export interface IProject {
@@ -60,7 +37,7 @@ export class Project implements IProject{
     progess: number = 0
     id: string
     //M2-Assigment-#6
-    todos: Todo[];
+    todos: Todo[] = [];
 
 
 

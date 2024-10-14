@@ -117,7 +117,7 @@
              </div>
         </div>
         </div>
-        <div class="page" id="project-details" style="display: flex;">
+        <div class="page" id="project-details" style="display: none;">
             <header>
                 <div>
                     <h2 data-project-info="name">Prject</h2>
@@ -222,8 +222,49 @@
                     </div>
                 </dialog>
             </dialog>
+            <dialog id="T-Do-project-modal">
+                <form id="T-Do-project-form" >
+                    <h2>Todo Creation</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <i class="fa-regular fa-building"></i>
+                            <label>Vad har hänt</label>
+                            <input name="name-todo" type="text"   placeholder=" What is the name of your project?">
+                        <div class="form-field-container">
+                            <i class="fa-regular fa-rectangle-list"></i>
+                            <label>Beskrivning</label>
+                            <input name="description-todo" cols="30" rows="5" placeholder="give me number"></input>
+                        <div class="form-field-container"></div>
+                            <i class="fa-regular fa-user"></i>
+                            <label>Role</label>
+                            <select name="role-todo">
+                                <option>Admin</option>
+                                <option>Manager</option>
+                                <option>Developer</option>
+                                <option>Designer</option>
+                            </select>
+                        <div class="form-field-container"></div>
+                            <i class="fa-regular fa-chart-bar"></i>
+                            <label>Status</label>
+                            <select name="Todostatus">
+                                <option>pending</option>
+                                <option>closed</option>
+                                <option>archived</option>
+                            </select>
+                        <div class="form-field-container"></div>
+                    </div>
+                        </div>
+                        <div class="form-field-container"></div>
+                        <i class="fa-regular fa-chart-bar"></i>
+                                <label>Finish date</label>
+                        <input name="date" type="date">
+                    <div class="button-container">
+                        <button id="todoclosebtn"  type="button" style=" align-items:end; color: white; padding: 9px; border-radius: 6px;">Cancel</button>
+                        <button type="submit" style="color: white; background-color: rgb(0, 255, 13); padding: 9px; border-radius: 6px;">Create</button>
+                </form>
+            </dialog> 
             <div class="main-page-content">
-                <div style="display: flex; flex-direction: column; row-gap: 30px;">
+                <div style="display: flex; flex-direction: column; row-gap: 3px;">
                     <div class="dashboard-card" style="padding: 30px 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0px; margin-bottom: 30px;">
                         <p class-header-class="dashboard-card-header" style="font-size: 20px; background-color: orange; aspect-ratio: 1; border-radius: 100%; padding: 15px; margin: 20px;">dtest </p>
@@ -255,120 +296,25 @@
                        <div style="width: 80%; background-color: green; padding: 4px 0; text-align: center;">80%</div>
                     </div>
                     </div>
-                    <div class="dashboard-card-todo" style="flex-grow: 1">
-                        <div style="padding: 20px 30px; display: flex; align-items: center; justify-content: space-between;">
-                            <h2>T-do</h2>
-                            <div style="display: flex; align-items: center; justify-content: end; column-gap: 20px;">
-                                <div style="display: flex; align-items: center; column-gap: 10px;">
-                                    <span class="material-icon-round">search</span>
-                                    <input type="text" placeholder="Search" style="width: 100%;">
-                                    <div><!-- //M2-Assigment-Q#6-->
-                                        <button id="addTodo">
-                                            <i id="editTodoitem" class="material-icons">add</i>
-                                        </button>
-                                        <button class="editTodbtn" id="editTodbtn" >
-                                            <i id="editTodoitem" class="material-icons">edit</i>
-                                        </button>
-                                    </div>
+                    <div style="padding: 20px 20px; display: flex; align-items: center; justify-content: space-between; background-color: #969696;">
+                        <h3>T-do</h3>
+                        <div style="display: flex; align-items: center; justify-content: flex-end; column-gap: 20px;">
+                            <div style="display: flex; align-items: center; column-gap: 10px;">
+                                <span class="material-icon-round">search</span>
+                                <input type="text" placeholder="Search" style="width: 100%;">
+                                <div><!-- //M2-Assigment-Q#6-->
+                                    <button id="addTodo">
+                                        <i id="editTodoitem" class="material-icons">add</i>
+                                    </button>
+                                    <button class="editTodbtn" id="editTodbtn" >
+                                        <i id="editTodoitem" class="material-icons">edit</i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <dialog id="T-Do-project-modal">
-                            <form id="T-Do-project-form" >
-                                <h2>Todo Creation</h2>
-                                <div class="input-list">
-                                    <div class="form-field-container">
-                                        <i class="fa-regular fa-building"></i>
-                                        <label>Vad har hänt</label>
-                                        <input name="name-todo" type="text"   placeholder=" What is the name of your project?">
-                                    <div class="form-field-container">
-                                        <i class="fa-regular fa-rectangle-list"></i>
-                                        <label>Beskrivning</label>
-                                        <input name="description-todo" cols="30" rows="5" placeholder="give me number"></input>
-                                    <div class="form-field-container"></div>
-                                        <i class="fa-regular fa-user"></i>
-                                        <label>Role</label>
-                                        <select name="role-todo">
-                                            <option>Admin</option>
-                                            <option>Manager</option>
-                                            <option>Developer</option>
-                                            <option>Designer</option>
-                                        </select>
-                                    <div class="form-field-container"></div>
-                                        <i class="fa-regular fa-chart-bar"></i>
-                                        <label>Status</label>
-                                        <select name="status">
-                                            <option>Pending</option>
-                                            <option>Closed</option>
-                                            <option>Archive</option>
-                                        </select>
-                                    <div class="form-field-container"></div>
-                                </div>
-                                    </div>
-                                    <div class="form-field-container"></div>
-                                    <i class="fa-regular fa-chart-bar"></i>
-                                            <label>Finish date</label>
-                                    <input name="date" type="date">
-                                <div class="button-container">
-                                    <button id="todoclosebtn"  type="button" style=" align-items:end; color: white; padding: 9px; border-radius: 6px;">Cancel</button>
-                                    <button type="submit" style="color: white; background-color: rgb(0, 255, 13); padding: 9px; border-radius: 6px;">Create</button>
-                            </form>
-                        </dialog>
-                        <dialog id="editToDoprojectmodal">
-                            <form id="editToDoprojectForm" >
-                                <h2>Edit Todo</h2>
-                                <div class="input-list">
-                                    <div class="form-field-container">
-                                        <i class="fa-regular fa-building"></i>
-                                        <label>Vad har hänt</label>
-                                        <input name="name-todo" type="text"   placeholder=" What is the name of your project?">
-                                    <div class="form-field-container">
-                                        <i class="fa-regular fa-rectangle-list"></i>
-                                        <label>Beskrivning</label>
-                                        <input name="description-todo" cols="30" rows="5" placeholder="give me number"></input>
-                                    <div class="form-field-container"></div>
-                                        <i class="fa-regular fa-user"></i>
-                                        <label>Role</label>
-                                        <select name="role-todo">
-                                            <option>Admin</option>
-                                            <option>Manager</option>
-                                            <option>Developer</option>
-                                            <option>Designer</option>
-                                        </select>
-                                    <div class="form-field-container"></div>
-                                        <i class="fa-regular fa-chart-bar"></i>
-                                        <label>Status</label>
-                                        <select name="status">
-                                            <option>Pending</option>
-                                            <option>Closed</option>
-                                            <option>Archive</option>
-                                        </select>
-                                    <div class="form-field-container"></div>
-                                </div>
-                                    </div>
-                                    <div class="form-field-container"></div>
-                                    <i class="fa-regular fa-chart-bar"></i>
-                                            <label>Finish date</label>
-                                    <input name="date" type="date">
-                                <div class="button-container">
-                                    <button id="todoclosebtn"  type="button" style=" align-items:end; color: white; padding: 9px; border-radius: 6px;">Cancel</button>
-                                    <button type="submit" style="color: white; background-color: rgb(0, 255, 13); padding: 9px; border-radius: 6px;">Update</button>
-                            </form>
-                        </dialog>
-                    <div><!--//M2-Assigment-Q#6-->
-                        <div class="Todolist" style="display: none;">
-                                <h4 name="name-todo" class="T-doHeader">Rubrik</h4>
-                                <p1 id="description-todo" name="description-todo">Beskrivning</p1>
-                        <div id="date-todo">Datum</div>
-                        <div id="editTodo" name="editTodo">Status
-                            <button id="editTodo" name="editTodo">Status
-                                <i id="T-Symbol" class="material-icons">check</i>
-                            </button>
-                            
-                        </div>
+                        </div>          
                     </div>
+                    <div class="dashboard-card-todo" style="flex-grow: 2;  display: #969696;">
                     </div>
-                </div>
                     <div id="viewer-container" class="dashboard-card"></div>
             </div>
             </div>
