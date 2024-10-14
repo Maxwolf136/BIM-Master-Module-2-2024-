@@ -335,7 +335,7 @@ button {
 
 .dashboard-card-header {
  text-transform: uppercase;
-  }
+}
 
 
 .dashboard-card-details {
@@ -381,7 +381,7 @@ button {
   background-color: var(--primary);
 }
 
-#todostatus {
+.todostatus {
   width: 70px;
   height: 30px;
   text-align: center;
@@ -444,9 +444,6 @@ button {
   10px;
 }
 
-.icon {
-   /* adjust spacing as needed */
-}
 
 #close-pop-up-btn {
   background-color: #3b3c3f;

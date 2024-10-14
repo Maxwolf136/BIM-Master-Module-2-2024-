@@ -175,6 +175,7 @@ const todDoForm = document.getElementById("T-Do-project-form") as HTMLFormElemen
 todDoForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+
 const formData = new FormData(todDoForm);
 const todoData: ITodo = {
     id: uuidv4(),
@@ -187,26 +188,32 @@ const todoData: ITodo = {
         day: "numeric",
     })
 }
-    const toDoListDiv = document.querySelector(".dashboard-card-todo") as HTMLDivElement
-    const toDoObject = new Todo(toDoListDiv, todoData, todoData.date)
-    
-    if (todoData.status) {;
-        const todoDiv = document.getElementById("todostatus") as HTMLDivElement;
-        if(todoDiv && todoData.status === "pending") {
-            todoDiv.style.backgroundColor = "green"
-        }
-        if(todoDiv && todoData.status === "closed") {
-            todoDiv.style.backgroundColor = "red"
-        }
-    } try {
-        toDoObject.setUI(toDoObject.id)
-        console.log("created")
-    } catch {
-        console.log("warning")
+
+//M2-Assigment-Q#9
+const toDoListDiv = document.querySelector(".dashboard-card-todo") as HTMLDivElement;
+const toDoObject = new Todo(toDoListDiv, todoData, todoData.date);
+
+try {
+    toDoObject.setUI(toDoObject.id);
+    console.log("created");
+} catch {
+    console.log("warning");
+}
+
+const todoDiv = document.querySelector(".toDoElement") as HTMLDivElement;
+
+if (todoDiv && todoData.status) {
+    if (todoData.status === "pending") {
+        todoDiv.style.backgroundColor = "green";
+        todoDiv.style.color = "white";
+    } else if (todoData.status === "closed") {
+        todoDiv.style.backgroundColor = "red";
     }
-    closeModal("T-Do-project-modal")
-    todDoForm.reset();
-    console.log(toDoObject)
+}
+
+closeModal("T-Do-project-modal");
+todDoForm.reset();
+console.log(toDoObject);
 }
  
 )
