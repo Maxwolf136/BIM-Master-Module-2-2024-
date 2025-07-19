@@ -2,6 +2,13 @@ import { Project, IProject, role, status } from "./classes/Project"
 import { ProjectManager } from "./classes/ProjectManager"
 import { closeModal, showModal, toggleModal, } from "./classes/Modal"
 import { Todo, ITodo, todostatus } from "./classes/TodoClass"
+
+// Import the changeColorIcon function
+const colorArray = ['blue', 'green', 'red', 'yellow', 'orange', 'purple', 'pink', 'brown', 'black', 'grey'];
+function changeColorIcon() {
+    const color = colorArray[Math.floor(Math.random() * colorArray.length)];
+    return color;   
+}
 import { v4 as uuidv4 } from 'uuid';
 import { reduceVertices } from "three/examples/jsm/utils/SceneUtils.js";
 
@@ -20,19 +27,79 @@ if (newProjectBtn) {
 }
 
 
+// Sidebar Navigation
 const projectPage = document.getElementById("project-page") as HTMLDivElement;
-const homePageButton = document.getElementById("homebtn") as HTMLButtonElement;
-const todoDiv = document.getElementById("To-dolist") as HTMLDivElement;
+const projectDetailsPage = document.getElementById("project-details") as HTMLDivElement;
 
-if (homePageButton) {
-    homePageButton.addEventListener("click", () => {
-        projectPage.style.display = "flex";
-        todoDiv.style.display = "none";
-       
+// Get all navigation buttons
+const navButtons = document.querySelectorAll('.nav-button') as NodeListOf<HTMLButtonElement>;
+
+// Add click event listeners to all nav buttons
+navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        navButtons.forEach(btn => btn.parentElement?.classList.remove('active'));
+        
+        // Add active class to clicked button
+        button.parentElement?.classList.add('active');
+        
+        // Handle page navigation based on data-page attribute
+        const page = button.getAttribute('data-page');
+        
+        switch(page) {
+            case 'home':
+                projectPage.style.display = "flex";
+                projectDetailsPage.style.display = "none";
+                break;
+            case 'projects':
+                projectPage.style.display = "flex";
+                projectDetailsPage.style.display = "none";
+                break;
+            case 'dashboard':
+                projectPage.style.display = "none";
+                projectDetailsPage.style.display = "flex";
+                break;
+            case 'tasks':
+                projectPage.style.display = "none";
+                projectDetailsPage.style.display = "flex";
+                break;
+            case 'analytics':
+                projectPage.style.display = "none";
+                projectDetailsPage.style.display = "flex";
+                break;
+            case 'settings':
+                // Handle settings page
+                console.log('Settings clicked');
+                break;
+            case 'help':
+                // Handle help page
+                console.log('Help clicked');
+                break;
+            default:
+                projectPage.style.display = "flex";
+                projectDetailsPage.style.display = "none";
+        }
+    });
+});
+
+// Mobile menu toggle
+const mobileMenuToggle = document.getElementById("mobile-menu-toggle") as HTMLButtonElement;
+const sidebar = document.getElementById("sidebar") as HTMLElement;
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+    });
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener("click", (e) => {
+        if (window.innerWidth <= 768) {
+            if (!sidebar.contains(e.target as Node) && !mobileMenuToggle.contains(e.target as Node)) {
+                sidebar.classList.remove("open");
+            }
+        }
     });
 }
-
-
 
 const projectForm = document.getElementById("new-project-form")
 
@@ -62,24 +129,32 @@ try {
     console.log(project)
 
     } catch (error) {
-       const errorElement = document.getElementById("pop-up-modal") as HTMLElement
-        //errorElement.innerHTML  // skapar en ny div med innehåll enligt "pop-up-modal elementet"
-        errorElement.style.display = "flex"; // Visar elementet som normalt är dolt
-        const closeBtnPopup = document.getElementById("close-pop-up-btn")
+        const warningModal = document.getElementById("pop-up-modal") as HTMLDialogElement;
+        if (warningModal) {
+            warningModal.showModal();
+        }
         
+        const closeBtnPopup = document.getElementById("close-pop-up-btn");
         if (closeBtnPopup) {
-          closeBtnPopup.addEventListener("click", () => {
-          errorElement.style.display = "none"; // släcker ner elementet
-        });
-
+            closeBtnPopup.addEventListener("click", () => {
+                warningModal.close();
+            });
         }
     }
 }) //end of eventlistener
 
 const closeBtn = document.getElementById("close-btn") as HTMLButtonElement
-closeBtn.addEventListener("click", (event) => {closeModal("new-project-modal")})   
+const cancelBtn = document.getElementById("cancel-btn") as HTMLButtonElement
+
+if (closeBtn) {
+    closeBtn.addEventListener("click", (event) => {closeModal("new-project-modal")})
+}
+
+if (cancelBtn) {
+    cancelBtn.addEventListener("click", (event) => {closeModal("new-project-modal")})
+}
+
 closeModal("new-project-modal")
-console.log(closeBtn)
 
 
 }   else {
@@ -140,13 +215,15 @@ if (editForm instanceof HTMLFormElement) {
             // Handle the error
         }
 
-        const errorElement = document.getElementById("pop-up-modal") as HTMLElement
-        errorElement.style.display = "flex"; // Visar elementet som normalt är dolt
+        const warningModal = document.getElementById("pop-up-modal") as HTMLDialogElement;
+        if (warningModal) {
+            warningModal.showModal();
+        }
 
-        const closeBtnPopup = document.getElementById("close-pop-up-btn")
+        const closeBtnPopup = document.getElementById("close-pop-up-btn");
         if (closeBtnPopup) {
             closeBtnPopup.addEventListener("click", () => {
-                errorElement.style.display = "none"; // släcker ner elementet
+                warningModal.close();
             });
         }
 
@@ -175,23 +252,21 @@ const todDoForm = document.getElementById("T-Do-project-form") as HTMLFormElemen
 todDoForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+//M2-Assigment-Q#9
+const toDoListDiv = document.querySelector(".dashboard-card-todo") as HTMLDivElement;
 
 const formData = new FormData(todDoForm);
+const todoDate = new Date(formData.get("date") as string);
 const todoData: ITodo = {
     id: uuidv4(),
     name: formData.get("name-todo") as string,
     description: formData.get("description-todo") as string,
     status: formData.get("Todostatus") as todostatus,
-    date : new Date(formData.get("date") as string).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    })
+    date: todoDate,
+    color: changeColorIcon(),
+    ui: toDoListDiv
 }
-
-//M2-Assigment-Q#9
-const toDoListDiv = document.querySelector(".dashboard-card-todo") as HTMLDivElement;
-const toDoObject = new Todo(toDoListDiv, todoData, todoData.date);
+const toDoObject = new Todo(toDoListDiv, todoData, new Date(formData.get("date") as string));
 
 try {
     toDoObject.setUI(toDoObject.id);

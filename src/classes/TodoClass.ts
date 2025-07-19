@@ -32,14 +32,14 @@ export class Todo implements ITodo {
 
   
   
-    constructor(container: HTMLDivElement, data: ITodo, Date ) {
-        this.ui = container
-        this.name = data.name;
-        this.description = data.description;
-        this.status = data.status;
-        this.date = this.date
-        this.id = uuidv4()
-    }
+constructor(container: HTMLDivElement, data: ITodo, date: Date) {
+    this.ui = container
+    this.name = data.name;
+    this.description = data.description;
+    this.status = data.status;
+    this.date = date;
+    this.id = uuidv4()
+}
 
 
     
@@ -57,7 +57,7 @@ export class Todo implements ITodo {
             <div id="todostatus" name="todostatus">${this.status}</div>
         </div>
         `;
-        container.append(newDiv);
+        container.appendChild(newDiv);
 
 
     }
