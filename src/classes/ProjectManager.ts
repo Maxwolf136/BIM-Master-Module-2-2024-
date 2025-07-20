@@ -30,6 +30,9 @@ export class ProjectManager {
         //M2-Assigment Q#7
         const project = new Project(data);
 
+
+   
+
         project.ui.addEventListener("click", () => {
             const projectPage = document.getElementById("project-page") as HTMLDivElement;
             const detailsPage = document.getElementById("project-details") as HTMLDivElement;
